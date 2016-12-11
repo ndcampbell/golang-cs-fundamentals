@@ -2,22 +2,36 @@ package main
 
 import "fmt"
 
-type LinkedList struct {
+type Node struct {
     Value interface{}
-    Next *LinkedList
+    Next *Node
 }
 
-func addLast (l *LinkedList, v interface{}) LinkedList {
-    newNode := LinkedList{Value: v, Next: nil}
-    l.Next = &newNode
-    return newNode
+func addLast (head *Node, v interface{}) {
+
+    newNode := Node{Value: v, Next: nil}
+    tmp := head
+    for tmp.Next != nil {
+        tmp = tmp.Next
+    }
+    tmp.Next = &newNode
 }
 
+func printAll(head *Node) {
+    tmp := head
+    for tmp.Next != nil {
+        fmt.Printf("%v\n", tmp)
+        tmp = tmp.Next
+    }
+    fmt.Printf("%v\n", tmp)
+    
+}
 func main() {
-    head := LinkedList{Value: 0, Next: nil}
-    newNode := addLast(&head, 1)
+    head := Node{Value: 0, Next: nil}
 
-    fmt.Printf("%v\n", head.Next)
-    fmt.Printf("%v\n", newNode.Next)
+    for i := 1; i <= 10; i++ {
+        addLast(&head, i)
+    }
+    printAll(&head)
 
 }
