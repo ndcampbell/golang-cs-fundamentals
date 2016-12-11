@@ -1,11 +1,13 @@
-package linkedlist
+package stack
+
+import "golang-cs-fundamentals/list"
 
 //implements stack logic for the linked list. First in Last out (FILO)
 
 // pops last value
-func Pop(head *Node) Node {
+func Pop(head *list.Node) list.Node {
     cur := head
-    var prev *Node
+    var prev *list.Node
     for cur.Next != nil {
         prev = cur
         cur = cur.Next
@@ -15,8 +17,8 @@ func Pop(head *Node) Node {
 }
 
 //pushes value to back
-func Push (head *Node, v interface{}) {
-    newNode := Node{Value: v, Next: nil}
+func Push (head *list.Node, v interface{}) {
+    newNode := list.Node{Value: v, Next: nil}
     tmp := head
     for tmp.Next != nil {
         tmp = tmp.Next
