@@ -3,7 +3,7 @@ package linkedlist
 //implements stack logic for the linked list. First in Last out (FILO)
 
 // pops last value
-func Pop(head *Node) *Node {
+func Pop(head *Node) Node {
     cur := head
     var prev *Node
     for cur.Next != nil {
@@ -11,7 +11,7 @@ func Pop(head *Node) *Node {
         cur = cur.Next
     }
     prev.Next = nil
-    return cur
+    return *cur
 }
 
 //pushes value to back

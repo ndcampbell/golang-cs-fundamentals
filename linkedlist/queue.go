@@ -1,17 +1,14 @@
 package linkedlist
 
-func dequeue(head *Node) *Node {
-    cur := head
-    var prev *Node
-    for cur.Next != nil {
-        prev = cur
-        cur = cur.Next
-    }
-    prev.Next = nil
+//Queue logic. First in, First out (FIFO)
+
+func Dequeue(head *Node) Node {
+    cur := *head
+    *head = *head.Next
     return cur
 }
 
-func enqueue (head *Node, v interface{}) {
+func Enqueue (head *Node, v interface{}) {
     newNode := Node{Value: v, Next: nil}
     tmp := head
     for tmp.Next != nil {
