@@ -1,26 +1,34 @@
 package main
 
 import "fmt"
-import "golang-cs-fundamentals/list"
 import "golang-cs-fundamentals/stack"
 import "golang-cs-fundamentals/queue"
 
 func main() {
-    head := list.Node{Value: 0, Next: nil}
-    for i := 1; i <=10; i++ {
-         stack.Push(&head, i)
-    }
-    fmt.Print("---Origional List---\n")
-    list.PrintAll(&head)
-
     fmt.Print("\n\n---STACK Logic---\n\n")
-    popped := stack.Pop(&head)
-    fmt.Printf("Popped Value: %v\n", popped)
-    fmt.Print("---List After Pop---\n")
-    list.PrintAll(&head)
+    s := stack.Stack{}
+
+    for i := 0; i < 10; i++ {
+         s.Push(i)
+    }
+    fmt.Print("---Stack Before Pop---\n")
+    s.PrintAll()
+
+    popped := s.Pop()
+    fmt.Printf("\nPopped Value: %v\n", popped)
+    fmt.Print("---Stack After Pop---\n")
+    s.PrintAll()
 
     fmt.Print("\n\n---QUEUE Logic---\n\n")
-    dequeued := queue.Dequeue(&head)
+    q := queue.Queue{}
+
+    for i := 0; i < 10; i++ {
+         q.Enqueue(i)
+    }
+    fmt.Print("---Queue Before Dequeue---\n")
+    q.PrintAll()
+    dequeued := q.Dequeue()
     fmt.Printf("Dequeued Value: %v\n", dequeued)
-    list.PrintAll(&head)
+    fmt.Print("---Queue After Dequeue---\n")
+    q.PrintAll()
 }
