@@ -2,7 +2,7 @@ package stack
 
 import "fmt"
 
-//implements stack logic for the linked list. First in Last out (FILO)
+//implements stack logic using linked list. First in Last out (FILO)
 
 type Node struct {
     Value interface{}
@@ -13,7 +13,7 @@ type Stack struct {
     head *Node
 }
 
-// pops last value
+// pops last value from stack. Returns whole node
 func (s *Stack) Pop() Node {
     cur := s.head
     var prev *Node
@@ -25,7 +25,7 @@ func (s *Stack) Pop() Node {
     return *cur
 }
 
-//pushes value to back
+//pushes value on top of Stack.
 func (s *Stack) Push(v interface{}) {
     newNode := Node{Value: v, Next: nil}
     if s.head == nil {
@@ -39,6 +39,7 @@ func (s *Stack) Push(v interface{}) {
     }
 }
 
+// Prints entire stack
 func (s *Stack) PrintAll() {
     tmp := s.head
     for tmp.Next != nil {
