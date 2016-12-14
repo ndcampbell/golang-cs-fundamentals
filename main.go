@@ -42,12 +42,17 @@ func demo_queue() {
 func demo_bst() {
     fmt.Print("\n---Binary Search Tree Demo---\n\n")
     bst := binarysearchtree.BST{}
-    bst.Insert(20, 0)
-    bst.Insert(15, 0)
-    bst.Insert(30, 0)
-    bst.Insert(2, 0)
+    bst.Insert(20, "test")
+    bst.Insert(15, "other test")
+    bst.Insert(30, "stuff")
+    bst.Insert(2, "more stuff")
+    bst.Insert(7, "not sure")
+    bst.Insert(8, "value goes here")
     fmt.Print("---All Nodes in Tree---\n")
     bst.PrintAll()
+    fmt.Print("---Searching for Node key==7---\n")
+    found := bst.Search(7)
+    fmt.Printf("Found!: %v\n", found)
 }
 
 func main() {

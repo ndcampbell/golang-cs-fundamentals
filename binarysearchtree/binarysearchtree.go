@@ -16,8 +16,8 @@ type BST struct {
 //Public BST Functions
 
 func (bst *BST) Search(key interface{}) Node {
-    return Node{}
-
+    foundnode := search_node(bst.root, key)
+    return *foundnode
 }
 
 //Public entry for inserting a key/value node onto tree
@@ -27,6 +27,7 @@ func (bst *BST) Insert(key interface{}, v interface{}) {
 
 
 func (bst *BST) Delete(key interface{}) {
+    //traverse(bst.root, key, delete_node)
     return
 }
 
@@ -36,6 +37,43 @@ func (bst *BST) PrintAll() {
 }
 
 //Private functions
+
+func delete_node(node *Node, key interface{}) *Node {
+    orignode := node
+    left := node.Left
+    right := node.Right
+    var foundnode *Node
+    if left != nil && left.Key == key {
+        foundnode = left
+    } else if right != nil && right.Key == key {
+        foundnode = right
+    } else {
+        return nil
+    }
+    //no children nodes, just remove from tree
+    if foundnode.Left == nil && foundnode.Right == nil {
+        if foundnode == orignode.Left {
+            orignode.Left = nil
+        } else if foundnode == orignode.Right {
+            orignode.Right = nil
+        }
+    }
+    return foundnode
+}
+
+func search_node(node *Node, key interface{}) *Node {
+    if node.Key == key {
+        return node
+    }
+    if node == nil {
+        return node
+    }
+    if key.(int) < node.Key.(int) {
+        return search_node(node.Left, key)
+    } else {
+        return search_node(node.Right, key)
+    }
+}
 
 //Define a callback function for nodes
 type node_callback func(*Node)
