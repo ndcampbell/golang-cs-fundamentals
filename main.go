@@ -46,6 +46,7 @@ func demo_bst() {
     bst.Insert(15, "other test")
     bst.Insert(30, "stuff")
     bst.Insert(2, "more stuff")
+    bst.Insert(16, "stuff")
     bst.Insert(7, "not sure")
     bst.Insert(8, "value goes here")
     fmt.Print("---All Nodes in Tree---\n")
@@ -53,6 +54,9 @@ func demo_bst() {
     fmt.Print("---Searching for Node key==7---\n")
     found := bst.Search(7)
     fmt.Printf("Found!: %v\n", found)
+    fmt.Printf("Deleting 7\n")
+    bst.Delete(16)
+    bst.PrintAll()
 }
 
 func main() {

@@ -5,6 +5,7 @@ import "fmt"
 type Node struct {
     Key interface{}
     Value interface{}
+    Parent *Node
     Left *Node
     Right *Node
 }
@@ -22,13 +23,12 @@ func (bst *BST) Search(key interface{}) Node {
 
 //Public entry for inserting a key/value node onto tree
 func (bst *BST) Insert(key interface{}, v interface{}) {
-    bst.root = insert(bst.root, key, v)
+    bst.root = insert(bst.root, bst.root, key, v)
 }
 
 
 func (bst *BST) Delete(key interface{}) {
-    //traverse(bst.root, key, delete_node)
-    return
+    delete_node(bst.root, key)
 }
 
 //Prints all values in order in the tree
@@ -38,27 +38,32 @@ func (bst *BST) PrintAll() {
 
 //Private functions
 
-func delete_node(node *Node, key interface{}) *Node {
-    orignode := node
-    left := node.Left
-    right := node.Right
-    var foundnode *Node
-    if left != nil && left.Key == key {
-        foundnode = left
-    } else if right != nil && right.Key == key {
-        foundnode = right
-    } else {
-        return nil
-    }
-    //no children nodes, just remove from tree
-    if foundnode.Left == nil && foundnode.Right == nil {
-        if foundnode == orignode.Left {
-            orignode.Left = nil
-        } else if foundnode == orignode.Right {
-            orignode.Right = nil
+func replace_node(parent *Node, child *Node) {
+    if child != nil {
+        if parent.Left != nil {
+            parent.Left = child
+        } else {
+            parent.Right = child
         }
     }
-    return foundnode
+}
+
+func delete_node(node *Node, key interface{}) {
+    if key.(int) > node.Key.(int) {
+        delete_node(node.Right, key)
+    } else if key.(int) < node.Key.(int) {
+        delete_node(node.Left, key)
+    } else {
+        if node.Left != nil && node.Right != nil {
+            fmt.Print("No logic for deleting node with two children")
+        } else if node.Left != nil {
+            replace_node(node.Parent, node.Left)
+        } else if node.Right !=nil {
+            replace_node(node.Parent, node.Right)
+        } else {
+            replace_node(node.Parent, nil)
+        }
+    }
 }
 
 func search_node(node *Node, key interface{}) *Node {
@@ -94,13 +99,13 @@ func traverse(node *Node, callback node_callback) {
 }
 
 // Recursively adds a node to the tree
-func insert(node *Node, key interface{}, v interface{}) *Node {
+func insert(node *Node, parent *Node, key interface{}, v interface{}) *Node {
     if node == nil {
-        node = &Node{Key: key, Value: v}
+        node = &Node{Parent: parent, Key: key, Value: v}
     } else if key.(int) < node.Key.(int) {
-        node.Left = insert(node.Left, key, v)
+        node.Left = insert(node.Left, node, key, v)
     } else {
-        node.Right = insert(node.Right, key, v)
+        node.Right = insert(node.Right, node, key, v)
     }
     return node
 }
