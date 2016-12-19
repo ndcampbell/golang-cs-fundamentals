@@ -11,6 +11,7 @@ type Node struct {
 
 type Queue struct {
     head *Node
+    last *Node
 }
 
 func (q *Queue) Dequeue() Node {
@@ -23,12 +24,11 @@ func (q *Queue) Enqueue(v interface{}) {
     newNode := Node{Value: v, Next: nil}
     if q.head == nil {
         q.head = &newNode
+        q.last = &newNode
     } else {
-        tmp := q.head
-        for tmp.Next != nil {
-            tmp = tmp.Next
-        }
-    tmp.Next = &newNode
+        tmp := q.last
+        tmp.Next = &newNode
+        q.last = &newNode
     }
 }
 
