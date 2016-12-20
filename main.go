@@ -54,8 +54,9 @@ func demo_bst() {
     fmt.Print("---Searching for Node key==7---\n")
     found := bst.Search(7)
     fmt.Printf("Found!: %v\n", found)
-    fmt.Printf("Deleting 7\n")
-    bst.Delete(16)
+    delete_key := 16
+    fmt.Printf("---Deleting Node key==%v---\n", delete_key)
+    bst.Delete(delete_key)
     bst.PrintAll()
 }
 

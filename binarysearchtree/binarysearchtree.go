@@ -38,12 +38,18 @@ func (bst *BST) PrintAll() {
 
 //Private functions
 
-func replace_node(parent *Node, child *Node) {
+func replace_node(node *Node, child *Node) {
     if child != nil {
-        if parent.Left != nil {
-            parent.Left = child
+        if node.Parent.Left != nil {
+            node.Parent.Left = child
         } else {
-            parent.Right = child
+            node.Parent.Right = child
+        }
+    } else {
+        if node.Parent.Left == node {
+            node.Parent.Left = nil
+        } else {
+            node.Parent.Right = nil
         }
     }
 }
@@ -55,13 +61,13 @@ func delete_node(node *Node, key interface{}) {
         delete_node(node.Left, key)
     } else {
         if node.Left != nil && node.Right != nil {
-            fmt.Print("No logic for deleting node with two children")
+            fmt.Print("No logic for deleting node with two children...yet")
         } else if node.Left != nil {
-            replace_node(node.Parent, node.Left)
+            replace_node(node, node.Left)
         } else if node.Right !=nil {
-            replace_node(node.Parent, node.Right)
+            replace_node(node, node.Right)
         } else {
-            replace_node(node.Parent, nil)
+            replace_node(node, nil)
         }
     }
 }
